@@ -1,0 +1,37 @@
+# Used on master and staging branches
+name: Development CI
+
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - '*' # Push events on all branchs
+      - '*/*'
+      - '!master' # Exclude master
+      - '!next' # Exclude next
+      - '!alpha' # Exclude alpha
+      - '!beta' # Exclude beta
+
+jobs:
+  test:
+    name: Test, Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🧪 Tests
+        run: yarn lint
+
+      - name: 🛠 Build Distribution
+        run: yarn build
