@@ -1,37 +1,26 @@
-# Used on master and staging branches
-name: Development CI
-
-on:
+name: v5 production CI/CD #pipeline for v5 production server
+'on':
   push:
-    # Sequence of patterns matched against refs/heads
     branches:
-      - '*' # Push events on all branchs
-      - '*/*'
-      - '!master' # Exclude master
-      - '!next' # Exclude next
-      - '!alpha' # Exclude alpha
-      - '!beta' # Exclude beta
-
-jobs:
-  test:
-    name: Test, Build & Release
+      - test #push events on branch next
+jobs:        
+  deploy:
+    name: Deploy on remote server against v5-staging
     runs-on: ubuntu-latest
-
     steps:
-      - name: 🏗 Setup repo
-        uses: actions/checkout@v2
-
-      - name: 🏗 Setup Node
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
         with:
-          node-version: 16.x
-          cache: yarn
-
-      - name: 📦 Install dependencies
-        run: yarn install
-
-      - name: 🧪 Tests
-        run: yarn lint
-
-      - name: 🛠 Build Distribution
-        run: yarn build
+          host: ${{ secrets.PRODHOST }}   
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRODKEY }}
+          port: ${{ secrets.PORT }}
+          command_timeout: 200m
+          script: |
+            cd /home/ubuntu/mevris-server || git clone -b test git@github.com:Usman7030/nestjs.git
+            cd /home/ubuntu/nestjs;
+            git pull origin test
+            aws ecr get-login-password --region us-east-2 |sudo  docker login --username AWS --password-stdin 050521377081.dkr.ecr.us-east-2.amazonaws.com
+ 
+            echo "success! All Done"
