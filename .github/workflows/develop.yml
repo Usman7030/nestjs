@@ -22,7 +22,8 @@ jobs:
             cd /home/ec2-user/nestjs
             git pull origin test
             aws ecr get-login-password --region us-east-2 |sudo  docker login --username AWS --password-stdin 050521377081.dkr.ecr.us-east-2.amazonaws.com
-            cd /home/ec2-user
-            git clone -b test git@github.com:Usman7030/nestjs.git
+            cd /home/ec2-user/nestjs || git clone -b test git@github.com:Usman7030/nestjs.git
+            cd /home/ec2-user/nestjs
+            git pull origin test
             touch index.js 
             echo "success! All Done"
