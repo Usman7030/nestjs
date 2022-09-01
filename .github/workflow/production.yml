@@ -1,0 +1,336 @@
+# Used on master and staging branches
+name: Production CI
+
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - 'master' # Push events on master branch
+      - 'next' # Push events on staging branch
+      - 'alpha' # Push events on alpha branch
+      - 'beta' # Push events on beta branch
+
+# env:
+#   # *************************************************
+#   # *** ⛔️ Don't put secret keys or tokens here ⛔️ ***
+#   # *************************************************
+#   # It is a security issue, that may get you fired.
+#   # Use GitHub Secrets instad.
+#   #
+#   # Following keys are prohibited in this file;
+#   # - SERVICE_ACTIVITIES_POSTGRES_PASSWORD
+#   # - SERVICE_ACTIVITIES_REDIS_PASSWORD
+#   # - SERVICE_API_GRAPHQL_REDIS_PASSWORD
+#   # - SERVICE_ENTITIES_POSTGRES_PASSWORD
+#   # - SERVICE_ENTITIES_REDIS_PASSWORD
+#   # - SERVICE_NOTIFICATIONS_POSTGRES_PASSWORD
+#   # - SERVICE_NOTIFICATIONS_REDIS_PASSWORD
+#   # - SERVICE_PRODUCTS_POSTGRES_PASSWORD
+#   # - SERVICE_PRODUCTS_REDIS_PASSWORD
+#   # - AGENDA_DB_ADDRESS
+#   # - SERVICE_RULES_POSTGRES_PASSWORD
+#   # - SERVICE_RULES_REDIS_PASSWORD
+#   # - SERVICE_SCHEMAS_POSTGRES_PASSWORD
+#   # - SERVICE_SCHEMAS_REDIS_PASSWORD
+#   # - SERVICE_TUYA_REDIS_PASSWORD
+#   # - TUYA_ACCESS_KEY
+#   # - TUYA_SECRET_KEY
+#   # - SERVICE_WEATHER_POSTGRES_PASSWORD
+#   # - SERVICE_WEATHER_REDIS_PASSWORD
+#   # - OPENWEATHER_API_KEY
+#   # - KEYCLOAK_ADMIN_PASSWORD
+#   # - KEYCLOAK_POSTGRES_PASSWORD
+#   # - KEYCLOAK_SECRET
+#   # - IMGPROXY_KEY
+#   # - IMGPROXY_SALT
+#   # - EVENTSTORE_TCP_PASSWORD
+#   # - ELASTICSEARCH_API_KEY
+#   # - SENTRY_DSN
+#   # - APM_TOKEN
+#   # *************************************************
+
+#   NODE_ENV: "production"
+
+#   ############################
+#   #*#  Service: Activities #*#
+#   ############################
+
+#   # General
+
+#   SERVICE_ACTIVITIES_NAME: "service-activities"
+#   SERVICE_ACTIVITIES_CLASS: "ServiceActivities"
+#   SERVICE_ACTIVITIES_NAMESPACE: "com.mevris.service.activities"
+#   SERVICE_ACTIVITIES_HOST: "localhost"
+#   SERVICE_ACTIVITIES_PORT: 50005
+
+#   # Database
+
+#   SERVICE_ACTIVITIES_POSTGRES_HOST: "localhost"
+#   SERVICE_ACTIVITIES_POSTGRES_PORT: 5432
+#   SERVICE_ACTIVITIES_POSTGRES_USERNAME: "postgres"
+#   SERVICE_ACTIVITIES_POSTGRES_DATABASE: "mevrisdb"
+
+#   # Cache
+
+#   SERVICE_ACTIVITIES_REDIS_HOST: "localhost"
+#   SERVICE_ACTIVITIES_REDIS_PORT: 6379
+
+#   #############################
+#   #*#  Service: API GraphQL #*#
+#   #############################
+
+#   # General
+
+#   SERVICE_API_GRAPHQL_NAME: "service-api-graphql"
+#   SERVICE_API_GRAPHQL_CLASS: "ServiceApiGraphql"
+#   SERVICE_API_GRAPHQL_NAMESPACE: "com.mevris.service.api.graphql"
+#   SERVICE_API_GRAPHQL_HOST: "localhost"
+#   SERVICE_API_GRAPHQL_PORT: 4000
+
+#   # Cache
+
+#   SERVICE_API_GRAPHQL_REDIS_HOST: "localhost"
+#   SERVICE_API_GRAPHQL_REDIS_PORT: 6379
+
+#   ##########################
+#   #*#  Service: Entities #*#
+#   ##########################
+
+#   # General
+
+#   SERVICE_ENTITIES_NAME: "service-entities"
+#   SERVICE_ENTITIES_CLASS: "ServiceEntities"
+#   SERVICE_ENTITIES_NAMESPACE: "com.mevris.service.entities"
+#   SERVICE_ENTITIES_HOST: "localhost"
+#   SERVICE_ENTITIES_PORT: 50010
+
+#   # Database
+
+#   SERVICE_ENTITIES_POSTGRES_HOST: "localhost"
+#   SERVICE_ENTITIES_POSTGRES_PORT: 5432
+#   SERVICE_ENTITIES_POSTGRES_USERNAME: "postgres"
+#   SERVICE_ENTITIES_POSTGRES_DATABASE: "mevrisdb"
+
+#   # Cache
+
+#   SERVICE_ENTITIES_REDIS_HOST: "localhost"
+#   SERVICE_ENTITIES_REDIS_PORT: 6379
+
+#   # MQTT
+#   # MQTT_URL: "mqtt://mqtt.mevris.app:3881"
+#   MQTT_URL: "mqtt://broker.hivemq.com"
+
+#   # Queues
+#   SERVICE_ENTITIES_ENABLE_STATE_QUEUE: true
+#   SERVICE_ENTITIES_ENABLE_MEASUREMENT_QUEUE: true
+#   SERVICE_ENTITIES_ENABLE_COMMAN_QUEUE: true
+
+#   # Upsert State
+#   SERVICE_ENTITIES_UPSERT_STATE_STRATEGY: "timer"
+#   SERVICE_ENTITIES_UPSERT_STATE_TIMER_TIMEOUT: 500
+
+#   ###############################
+#   #*#  Service: Notifications #*#
+#   ###############################
+
+#   # General
+
+#   SERVICE_NOTIFICATIONS_NAME: "service-notifications"
+#   SERVICE_NOTIFICATIONS_CLASS: "ServiceNotifications"
+#   SERVICE_NOTIFICATIONS_NAMESPACE: "com.mevris.service.notifications"
+#   SERVICE_NOTIFICATIONS_HOST: "localhost"
+#   SERVICE_NOTIFICATIONS_PORT: 50015
+
+#   # Database
+
+#   SERVICE_NOTIFICATIONS_POSTGRES_HOST: "localhost"
+#   SERVICE_NOTIFICATIONS_POSTGRES_PORT: 5432
+#   SERVICE_NOTIFICATIONS_POSTGRES_USERNAME: "postgres"
+#   SERVICE_NOTIFICATIONS_POSTGRES_DATABASE: "mevrisdb"
+
+#   # Cache
+
+#   SERVICE_NOTIFICATIONS_REDIS_HOST: "localhost"
+#   SERVICE_NOTIFICATIONS_REDIS_PORT: 6379
+
+#   ##########################
+#   #*#  Service: Products #*#
+#   ##########################
+
+#   # General
+
+#   SERVICE_PRODUCTS_NAME: "service-products"
+#   SERVICE_PRODUCTS_CLASS: "ServiceProducts"
+#   SERVICE_PRODUCTS_NAMESPACE: "com.mevris.service.products"
+#   SERVICE_PRODUCTS_HOST: "localhost"
+#   SERVICE_PRODUCTS_PORT: 50020
+
+#   # Database
+
+#   SERVICE_PRODUCTS_POSTGRES_HOST: "localhost"
+#   SERVICE_PRODUCTS_POSTGRES_PORT: 5432
+#   SERVICE_PRODUCTS_POSTGRES_USERNAME: "postgres"
+#   SERVICE_PRODUCTS_POSTGRES_DATABASE: "mevrisdb"
+
+#   # Cache
+
+#   SERVICE_PRODUCTS_REDIS_HOST: "localhost"
+#   SERVICE_PRODUCTS_REDIS_PORT: 6379
+
+#   #######################
+#   #*#  Service: Rules #*#
+#   #######################
+
+#   # General
+
+#   SERVICE_RULES_NAME: "service-rules"
+#   SERVICE_RULES_CLASS: "ServiceRules"
+#   SERVICE_RULES_NAMESPACE: "com.mevris.service.rules"
+#   SERVICE_RULES_HOST: "localhost"
+#   SERVICE_RULES_PORT: 50025
+
+#   # Database
+
+#   SERVICE_RULES_POSTGRES_HOST: "localhost"
+#   SERVICE_RULES_POSTGRES_PORT: 5432
+#   SERVICE_RULES_POSTGRES_USERNAME: "postgres"
+#   SERVICE_RULES_POSTGRES_DATABASE: "mevrisdb"
+
+#   # Cache
+
+#   SERVICE_RULES_REDIS_HOST: "localhost"
+#   SERVICE_RULES_REDIS_PORT: 6379
+
+#   # Agenda
+
+#   AGENDA_NAME: "mevris"
+
+#   #########################
+#   #*#  Service: Schemas #*#
+#   #########################
+
+#   # General
+
+#   SERVICE_SCHEMAS_NAME: "service-schemas"
+#   SERVICE_SCHEMAS_CLASS: "ServiceSchemas"
+#   SERVICE_SCHEMAS_NAMESPACE: "com.mevris.service.schemas"
+#   SERVICE_SCHEMAS_HOST: "localhost"
+#   SERVICE_SCHEMAS_PORT: 50030
+
+#   # Database
+
+#   SERVICE_SCHEMAS_POSTGRES_HOST: "localhost"
+#   SERVICE_SCHEMAS_POSTGRES_PORT: 5432
+#   SERVICE_SCHEMAS_POSTGRES_USERNAME: "postgres"
+#   SERVICE_SCHEMAS_POSTGRES_DATABASE: "mevrisdb"
+
+#   # Cache
+
+#   SERVICE_SCHEMAS_REDIS_HOST: "localhost"
+#   SERVICE_SCHEMAS_REDIS_PORT: 6379
+
+#   ######################
+#   #*#  Service: Tuya #*#
+#   ######################
+
+#   # General
+
+#   SERVICE_TUYA_NAME: "service-tuya"
+#   SERVICE_TUYA_CLASS: "ServiceTuya"
+#   SERVICE_TUYA_NAMESPACE: "com.mevris.service.tuya"
+#   SERVICE_TUYA_HOST: "localhost"
+#   SERVICE_TUYA_PORT: 60005
+
+#   # Cache
+
+#   SERVICE_TUYA_REDIS_HOST: "localhost"
+#   SERVICE_TUYA_REDIS_PORT: 6379
+
+#   # Tuya API
+
+#   TUYA_BASE_URL: "https://openapi.tuyaeu.com"
+
+#   #########################
+#   #*#  Service: Weather #*#
+#   #########################
+
+#   # General
+
+#   SERVICE_WEATHER_NAME: "service-weather"
+#   SERVICE_WEATHER_CLASS: "ServiceWeather"
+#   SERVICE_WEATHER_NAMESPACE: "com.mevris.service.weather"
+#   SERVICE_WEATHER_HOST: "localhost"
+#   SERVICE_WEATHER_PORT: 50035
+
+#   # Database
+
+#   SERVICE_WEATHER_POSTGRES_HOST: "localhost"
+#   SERVICE_WEATHER_POSTGRES_PORT: 5432
+#   SERVICE_WEATHER_POSTGRES_USERNAME: "postgres"
+#   SERVICE_WEATHER_POSTGRES_DATABASE: "mevrisdb"
+
+#   # Cache
+
+#   SERVICE_WEATHER_REDIS_HOST: "localhost"
+#   SERVICE_WEATHER_REDIS_PORT: 6379
+
+#   ###############
+#   #*#  Global #*#
+#   ###############
+
+#   # IMG PROXY
+#   IMGPROXY_BASE_URL: "https://img.mevris.app"
+
+#   # Event Store DB
+
+#   EVENTSTORE_HOSTNAME: "localhost"
+#   EVENTSTORE_TCP_PORT: "1113"
+#   EVENTSTORE_TCP_USERNAME: "admin"
+
+#   # Keycloak
+
+#   KEYCLOAK_VERSION: latest
+#   KEYCLOAK_PORT: 8080
+#   KEYCLOAK_ADMIN_USER: admin
+#   KEYCLOAK_POSTGRES_USERNAME: keycloak
+#   KEYCLOAK_POSTGRES_DATABASE: keycloak
+
+#   KEYCLOAK_AUTH_SERVER_URL: "http://localhost:8080/auth"
+#   KEYCLOAK_REALM: "master"
+#   KEYCLOAK_CLIENT_ID: "admin-cli"
+
+#   # Elastic
+
+#   # ELASTICSEARCH_NODE: "https://search.mevris.app"
+
+#   # APM_HOST: "https://985a5d31138146e987275fa2b29062b4.apm.eu-west-1.aws.cloud.es.io:443"
+
+jobs:
+  test:
+    name: Test, Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🧪 Tests
+        run: yarn lint
+
+      - name: 🛠 Build Distribution
+        run: yarn build
+
+      - name: ⚡️ Semantic Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
