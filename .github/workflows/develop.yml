@@ -2,7 +2,7 @@ name: v5 production CI/CD #pipeline for v5 production server
 'on':
   push:
     branches:
-      - test #push events on branch next
+      - test #push events on branch next  
 jobs:        
   deploy:
     name: Deploy on remote server against v5-staging
@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: executing remote ssh commands using ssh key
-        uses: appleboy/ssh-action@main
+        uses: appleboy/ssh-action@v0.1.2
         with:
           host: ${{ secrets.PRODHOST }}   
           username: ${{ secrets.USERNAME }}
