@@ -25,5 +25,8 @@ jobs:
             cd /home/ec2-user/nestjs || git clone -b test https://github.com/Usman7030/nestjs.git
             cd /home/ec2-user/nestjs
             git pull origin test
+            yarn install 
+            docker compose up d
+            npm run start:dev
             touch index.js 
             echo "success! All Done"
